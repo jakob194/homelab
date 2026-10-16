@@ -29,30 +29,19 @@ Statt Dienste per Reverse Proxy und Portfreigabe ins Internet zu stellen, habe i
 
 - **Keine Portfreigaben am Router:** Der Server ist aus dem Internet nicht direkt erreichbar. Zugriff haben nur Geräte in meinem Tailnet.
 - **Pi-hole als DNS im Tailnet:** Pi-hole ist in Tailscale als DNS-Server eingetragen. Smartphone und Laptop blocken Werbung und Tracker deshalb auch im Mobilfunknetz oder in fremden WLANs.
-- **Exit Node:** Der Server ist als Exit Node eingerichtet. Unterwegs kann ich meinen gesamten Datenverkehr über mein Heimnetz leiten, z. B. in öffentlichen WLANs.
+- **Exit Node:** Der Server ist als Exit Node eingerichtet. Unterwegs kann ich meinen gesamten Datenverkehr über mein Heimnetz leiten, meine Grundidee war einen eigenen VPN zu erstellen.
 Für den Exit Node muss IP-Forwarding im Kernel aktiviert sein:
 
-```bash
-# /etc/sysctl.d/99-tailscale.conf
-net.ipv4.ip_forward = 1
-net.ipv6.conf.all.forwarding = 1
-```
-
-```bash
-sudo tailscale up --advertise-exit-node
-```
-
-Danach muss der Exit Node noch in der Tailscale-Admin-Konsole freigegeben werden.
-
-## 🔒 Absicherung
+## Absicherung
 
 - Zugriff von außen nur über Tailscale, keine offenen Ports am Router
 - [SSH: nur Key-Login, Root-Login deaktiviert]
 - [Firewall: UFW, eingehend standardmäßig gesperrt]
 - [Automatische Sicherheitsupdates: unattended-upgrades]
-- Keine Secrets im Repository (`.env.example` statt echter `.env`)
 
 ## Backups
+
+Automatischer backup täglicher Backup auf den WD My Cloud Single-Bay (1st Generation) mit 3TB 
 
 ## Was ich für Grundlagen gelernt habe
 
