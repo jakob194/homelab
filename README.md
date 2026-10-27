@@ -1,6 +1,6 @@
 # Ubuntu Homelab: Self-Hosting
 
-Mein privater Home-Server auf Basis von Ubuntu Server, der auf einem gebrauchten Laptop läuft. Er hostet mehrere Dienste in Docker-Containern. Der Zugriff von außen läuft ausschließlich über ein Tailscale-VPN, ohne Port-Forwarding und ohne öffentlich erreichbaren Reverse Proxy.
+Mein privater Home-Server mit dem Betriebssystem Ubuntu Server, den ich auf einen alten gebrauchten Laptop installiert habe. Er hostet mehrere Dienste in Docker-Containern. Der Zugriff von außen läuft ausschließlich über ein Tailscale-VPN, ohne Port-Forwarding und ohne öffentlich erreichbaren Reverse Proxy, weil ich keine Security leaks haben möchte.
 
 ##️ Hardware & System
 
@@ -9,7 +9,7 @@ Mein privater Home-Server auf Basis von Ubuntu Server, der auf einem gebrauchten
 | **Gerät** | Dell Latitude 3570 (gebraucht) |
 | **CPU** | Intel Core i5 |
 | **RAM** | 8 GB |
-| **Speicher** | SSD (nachgerüstet), 1 TB |
+| **Speicher** | SATA-SSD (nachgerüstet), 1 TB |
 | **OS** | Ubuntu Server [Version, z. B. 24.04 LTS] |
 
 ## Applications (Docker)
@@ -25,12 +25,12 @@ Verwaltet wird alles mit [Docker Compose / Portainer-Stacks]. Die Konfiguratione
 
 ## Netzwerk & Zugriff
 
-Statt Dienste per Reverse Proxy und Portfreigabe ins Internet zu stellen, habe ich mich bewusst für **Tailscale** (WireGuard-basiertes Mesh-VPN) entschieden. Ein Reverse Proxy wäre eine zusätzliche Angriffsfläche, besonders bei privaten Daten wie Fotos und Cloud-Dateien.
+Statt Dienste per Reverse Proxy und Portfreigabe ins öffentliche Internet freizugeben, habe ich mich bewusst für **Tailscale** (WireGuard-basiertes Mesh-VPN) entschieden. Ein Reverse Proxy wäre eine zusätzliche Angriffsfläche, besonders bei privaten Daten wie Fotos und Cloud-Dateien.
 
 - **Keine Portfreigaben am Router:** Der Server ist aus dem Internet nicht direkt erreichbar. Zugriff haben nur Geräte in meinem Tailnet.
-- **Pi-hole als DNS im Tailnet:** Pi-hole ist in Tailscale als DNS-Server eingetragen. Smartphone und Laptop blocken Werbung und Tracker deshalb auch im Mobilfunknetz oder in fremden WLANs.
-- **Exit Node:** Der Server ist als Exit Node eingerichtet. Unterwegs kann ich meinen gesamten Datenverkehr über mein Heimnetz leiten, meine Grundidee war einen eigenen VPN zu erstellen.
-Für den Exit Node muss IP-Forwarding im Kernel aktiviert sein:
+- **Pi-hole als DNS im Tailnet:** Pi-hole ist in Tailscale als DNS-Server eingetragen. Deshalb wird auch im Mobilfunknetz oder in fremden WLANs
+  tracker und ads gesperrt.
+- **Exit Node:** Der Server ist als Exit Node eingerichtet. Unterwegs kann ich meinen gesamten Datenverkehr über mein Heimnetz leiten, meine Grundidee war einen eigenen VPN zu bauen.
 
 ## Absicherung
 
@@ -41,11 +41,11 @@ Für den Exit Node muss IP-Forwarding im Kernel aktiviert sein:
 
 ## Backups
 
-Automatischer backup täglicher Backup auf den WD My Cloud Single-Bay (1st Generation) mit 3TB 
+Automatischer backup täglicher Backup auf den WD My Cloud Single-Bay (1st Generation) mit 3TB. 
 
 ## Was ich für Grundlagen gelernt habe
 
 - Linux-Administration: Installation, Benutzer und Rechte, Dienste, Logs
 - Docker: Multi-Container-Setups, Volumes, Container-Netzwerke
-- Netzwerk: VPN-Konzepte, DNS, IP-Forwarding, Verzicht auf öffentliche Angriffsfläche
+- Netzwerk: VPN-Konzepte, DNS, IP-Forwarding
 - Troubleshooting: Fehlersuche bei Containern, DNS und Routing
